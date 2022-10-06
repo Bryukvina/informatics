@@ -3,9 +3,9 @@
 
 struct Data
 {
-    unsigned int day: 5;
-    unsigned int month: 4;
     unsigned int year: 12;
+    unsigned int month: 4;
+    unsigned int day: 5;
     unsigned int hours: 5;
     unsigned int minuts: 6;
     unsigned int seconds: 6;
