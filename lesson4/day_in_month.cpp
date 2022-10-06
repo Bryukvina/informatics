@@ -1,6 +1,6 @@
 #include <iostream>
 
-enum  MONTHS {
+enum  class MONTHS {
     Jan = 1,
     Feb,
     Mar,
@@ -27,18 +27,18 @@ int main(){
     
     switch (month)
     {
-        case Jan: std::cout << "January" << " 31" << std::endl; break;
-        case Feb: std::cout << "February" << " 28" << std::endl; break;
-        case Mar: std::cout << "March" << " 31" << std::endl; break;
-        case Apr: std::cout << "April" << " 30" << std::endl; break;
-        case May: std::cout << "May" << " 31" << std::endl; break;
-        case Jun: std::cout << "June" << " 30" << std::endl; break;
-        case Jul: std::cout << "July" << " 31" << std::endl; break;
-        case Aug: std::cout << "August" << " 31" << std::endl; break;
-        case Sep: std::cout << "September" << " 30" << std::endl; break;
-        case Oct: std::cout << "October" << " 31" << std::endl; break;
-        case Nov: std::cout << "November" << " 30" << std::endl; break;
-        case Dec: std::cout << "December" << " 31" << std::endl; break;
+        case Jan: std::cout << " 31" << std::endl; break;
+        case Feb: std::cout << " 28" << std::endl; break;
+        case Mar: std::cout << " 31" << std::endl; break;
+        case Apr: std::cout << " 30" << std::endl; break;
+        case May: std::cout << " 31" << std::endl; break;
+        case Jun: std::cout << " 30" << std::endl; break;
+        case Jul: std::cout << " 31" << std::endl; break;
+        case Aug: std::cout << " 31" << std::endl; break;
+        case Sep: std::cout << " 30" << std::endl; break;
+        case Oct: std::cout << " 31" << std::endl; break;
+        case Nov: std::cout << " 30" << std::endl; break;
+        case Dec: std::cout << " 31" << std::endl; break;
     }
     
     return 0;
