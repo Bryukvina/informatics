@@ -27,18 +27,18 @@ int main(){
     
     switch (month)
     {
-        case Jan: std::cout << " 31" << std::endl; break;
-        case Feb: std::cout << " 28" << std::endl; break;
-        case Mar: std::cout << " 31" << std::endl; break;
-        case Apr: std::cout << " 30" << std::endl; break;
-        case May: std::cout << " 31" << std::endl; break;
-        case Jun: std::cout << " 30" << std::endl; break;
-        case Jul: std::cout << " 31" << std::endl; break;
-        case Aug: std::cout << " 31" << std::endl; break;
-        case Sep: std::cout << " 30" << std::endl; break;
-        case Oct: std::cout << " 31" << std::endl; break;
-        case Nov: std::cout << " 30" << std::endl; break;
-        case Dec: std::cout << " 31" << std::endl; break;
+        case MONTHS::Jan: std::cout << "31" << std::endl; break;
+        case MONTHS::Feb: std::cout << "28" << std::endl; break;
+        case MONTHS::Mar: std::cout << "31" << std::endl; break;
+        case MONTHS::Apr: std::cout << "30" << std::endl; break;
+        case MONTHS::May: std::cout << "31" << std::endl; break;
+        case MONTHS::Jun: std::cout << "30" << std::endl; break;
+        case MONTHS::Jul: std::cout << "31" << std::endl; break;
+        case MONTHS::Aug: std::cout << "31" << std::endl; break;
+        case MONTHS::Sep: std::cout << "30" << std::endl; break;
+        case MONTHS::Oct: std::cout << "31" << std::endl; break;
+        case MONTHS::Nov: std::cout << "30" << std::endl; break;
+        case MONTHS::Dec: std::cout << "31" << std::endl; break;
     }
     
     return 0;
