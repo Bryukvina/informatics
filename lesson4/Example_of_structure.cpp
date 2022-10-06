@@ -6,19 +6,13 @@ struct Workout{
     int duration;     //  in m
     int difficalty;
 
-    Workout() {
-        duration = 30;
-        difficalty = 1;
-    };
+    Workout() {30, 1;};
+    Workout(int min, int dif){duration = min; difficalty = dif;};
     ~Workout(){};
-};
 
-void make_easy(Workout ex){
-    ex.difficalty = 1;
-};
+    void make_easy(){difficalty = 1;};
 
-void make_harder(Workout ex){
-    ex.difficalty = 3;
+    void make_harder(){difficalty = 3;};
 };
 
 void change_duration(Workout ex, int time){
@@ -45,10 +39,10 @@ int main(){
     ex2.difficalty = 2;
 
     print(ex1 + ex2);
-    make_harder(ex2);
+    ex2.make_harder();
     print(ex2);
 
-    make_easy(ex1);
+    ex1.make_easy();
     print(ex1);
 
     change_duration(ex1, 20);
