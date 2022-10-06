@@ -1,41 +1,48 @@
 #include <iostream>
+#include <vector>
+
+struct Lesson;
+struct Student;
 
 struct Student
 {
     std::string Name;
-    std::string Surname;
-    Lesson *lessons;
+    std::vector <Lesson*> lessons;
+
+   // Lesson* lessons = new Lesson [10] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 };
 
 struct Lesson
 {
     std::string Title;
-    Student *students;
+    std::vector <Student*> students;
+
+   // Student* students = new Student [10] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 };
 
 int main()
-{
-    Student Sasha = {"Sasha", "Sev", new Lesson [3]};
-    Student Masha = {"Masha", "Tar", new Lesson [2]};
-    Student Pety = {"Pety", "Gor", new Lesson [4]};
-    Student Isolda = {"Isolda", "Mora", new Lesson [5]};
+{   
+    Student* Sasha = new Student {"Sasha"};
+    Student* Masha = new Student {"Masha"};
+    Student* Pety = new Student {"Pety"};
 
-    Lesson math = {"Math", new Student [3]};
-    Lesson PE = {"PE", new Student [2]};
-    Lesson informatics = {"informatics", new Student [3]};
-    Lesson physics = {"physics", new Student [2]};
-    Lesson english = {"english", new Student [4]};
+    Lesson math = {"Math"};
+    Lesson PE = {"PE"};
+    Lesson informatics = {"Informatics"};
 
+    int i;
+    Lesson* ar_of_les = new Lesson[3] {math, PE, informatics};
+    Student* ar_of_stud = new Student[3] {*Sasha, *Masha, *Pety};
 
-    math.students = {&Sasha, &Pety, &Isolda};
-    PE.students = {&Masha, &Isolda};
-    informatics.students = {&Pety, &Sasha, &Isolda};
-    physics.students = {&Pety, &Isolda};
-    english.students = {&Sasha, &Masha, &Pety, &Isolda};
+    for (i = 0; i < 3; i++) {
+        Sasha->lessons.push_back(&(ar_of_les[i]));
+        Masha->lessons.push_back(&(ar_of_les[i]));
+        Pety->lessons.push_back(&(ar_of_les[i]));
+    }
+    
+    
+    std::cout << Pety->lessons[1]->Title << std::endl;
+    
 
-
-    Sasha.lessons  = {&math, &informatics, &english};
-    Masha.lessons = {&PE, &english};
-    Pety.lessons = {&math, &physics, &informatics, &english};
-    Isolda.lessons = {&math, &PE, &informatics, &physics, &english};
+    return 0;
 }
