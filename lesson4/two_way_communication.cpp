@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <typeinfo>
+
 
 struct Lesson;
 struct Student;
@@ -8,41 +10,61 @@ struct Student
 {
     std::string Name;
     std::vector <Lesson*> lessons;
-
-   // Lesson* lessons = new Lesson [10] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    void print();
 };
 
 struct Lesson
 {
     std::string Title;
     std::vector <Student*> students;
+    void print();
+};
 
-   // Student* students = new Student [10] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+void Student::print(){
+    int i;
+    std::cout << "Name: " << Name << "; Lessons: ";
+    for (i = 0; i < lessons.size(); i++){
+        std::cout << lessons[i]->Title << " ";
+    };
+    std::cout << "\n";
+};
+
+void Lesson::print(){
+    int i;
+    std::cout << "Title: " << Title << "; Students: ";
+    for (i = 0; i < students.size(); i++){
+        std::cout << students[i] ->Name << " ";
+    };
+    std::cout << "\n";
+};
+
+void connect(Student &st, Lesson &ls){
+    st.lessons.push_back(&ls);
+    ls.students.push_back(&st);
 };
 
 int main()
 {   
-    Student* Sasha = new Student {"Sasha"};
-    Student* Masha = new Student {"Masha"};
-    Student* Pety = new Student {"Pety"};
+    Student Sasha = {"Sasha"};
+    Student Masha = {"Masha"};
+    Student Pety = {"Pety"};
 
     Lesson math = {"Math"};
     Lesson PE = {"PE"};
     Lesson informatics = {"Informatics"};
 
-    int i;
-    Lesson* ar_of_les = new Lesson[3] {math, PE, informatics};
-    Student* ar_of_stud = new Student[3] {*Sasha, *Masha, *Pety};
 
-    for (i = 0; i < 3; i++) {
-        Sasha->lessons.push_back(&(ar_of_les[i]));
-        Masha->lessons.push_back(&(ar_of_les[i]));
-        Pety->lessons.push_back(&(ar_of_les[i]));
-    }
-    
-    
-    std::cout << Pety->lessons[1]->Title << std::endl;
-    
+    connect(Sasha, math);
+    connect(Masha, PE);
+    connect(Pety, informatics);
+    connect(Pety, math);
+    connect(Sasha, informatics);
+
+    Sasha.print();
+    informatics.print();
+    Pety.print();
+    Masha.print();
+    math.print();
 
     return 0;
 }
