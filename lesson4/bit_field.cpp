@@ -4,12 +4,12 @@
 struct Data
 {
     unsigned int year: 12;
-    unsigned int month: 4;
-    unsigned int day: 5;
-    unsigned int hours: 5;
+    unsigned int mseconds: 7;
     unsigned int minuts: 6;
     unsigned int seconds: 6;
-    unsigned int mseconds: 7;
+    unsigned int day: 5;
+    unsigned int hours: 5;
+    unsigned int month: 4;
 };
 
 void print(Data data)
@@ -27,6 +27,10 @@ int main()
     data.hours = 7;
     data.seconds = 30;
     data.mseconds = 20;
+
+    std::cout << alignof(data) << std::endl;
+    
+    std::cout << sizeof(data) << std::endl;
 
     print(data);
 }
