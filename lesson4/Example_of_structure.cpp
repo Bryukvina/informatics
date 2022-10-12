@@ -6,13 +6,15 @@ struct Workout{
     int duration;     //  in m
     int difficalty;
 
-    Workout() {30, 1;};
-    Workout(int min, int dif){duration = min; difficalty = dif;};
-    ~Workout(){};
+    Workout(){};
+    Workout(int min, int dif){30; 1;};
+    ~Workout() = default;
 
     void make_easy(){difficalty = 1;};
 
     void make_harder(){difficalty = 3;};
+    
+    void print(){std::cout << "Duration = " << duration << ", Difficalty = " << difficalty << std::endl;};
 };
 
 void change_duration(Workout ex, int time){
@@ -26,9 +28,7 @@ Workout operator + (Workout ex1, Workout ex2){
     return result;
 };
 
-void print(Workout ex){
-    std::cout << "Duration = " << ex.duration << ", Difficalty = " << ex.difficalty << std::endl;
-};
+
 
 int main(){
     Workout ex1;
@@ -38,15 +38,17 @@ int main(){
     ex1.difficalty = 3;
     ex2.difficalty = 2;
 
-    print(ex1 + ex2);
+    
     ex2.make_harder();
-    print(ex2);
+    ex2.print();
 
     ex1.make_easy();
-    print(ex1);
-
+    ex1.print();
+    
+    (ex1 + ex2).print();
+    
     change_duration(ex1, 20);
-    print(ex1);
+    ex1.print();
 
     return 0;
 };
