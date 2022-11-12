@@ -2,6 +2,7 @@
 #include <cmath>
 #include "frac.hpp"
 
+
 int NOD(int x, int y)
 {   if (y == 0) return x;
     return NOD(y, x % y);
@@ -26,7 +27,7 @@ Fraction operator + (Fraction f1, Fraction f2){
     return res;
 };
 
-Fraction operator + (int f1, Fraction f2){
+Fraction operator+ (int f1, Fraction f2){
     int n, d;
     Fraction res;
     n = f1 * f2.den + f2.num;
@@ -38,7 +39,7 @@ Fraction operator + (int f1, Fraction f2){
 };
 
 
-void Fraction::operator ++ (){
+void Fraction::operator++ (){
     int nod;
     num += den;
     nod = NOD(num, den);
@@ -46,7 +47,7 @@ void Fraction::operator ++ (){
     den = den / nod;
 };
 
-void Fraction::operator ++ (int f1){
+void Fraction::operator++ (int f1){
     int nod;
     num += den;
     nod = NOD(num, den);
@@ -54,7 +55,7 @@ void Fraction::operator ++ (int f1){
     den = den / nod;
 };
 
-Fraction operator - (Fraction f1, Fraction f2){
+Fraction operator- (Fraction f1, Fraction f2){
     Fraction res;
     int d, n;
     n = f1.num * f2.den - f2.num * f1.den;
@@ -64,7 +65,7 @@ Fraction operator - (Fraction f1, Fraction f2){
     res.Reduction();
     return res;
 };
-Fraction operator - (int f1, Fraction f2){
+Fraction operator- (int f1, Fraction f2){
     int n, d;
     Fraction res;
     n = f1 * f2.den - f2.num;
@@ -176,7 +177,7 @@ std::istream &operator>> (std::istream &input, Fraction &f)
   return input;
 };
 
-std::ostream &operator << (std::ostream &output, const Fraction& frac)
+std::ostream &operator<<(std::ostream &output, const Fraction &frac)
 {
   return output << frac.num << "/" << frac.den;
 };
