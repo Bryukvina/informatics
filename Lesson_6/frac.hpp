@@ -10,40 +10,40 @@ class Fraction{
         Fraction(int n){num = n; den = 1;};
         ~Fraction() = default;
 
-    void Reduction();
+        void Reduction();
 
-    friend Fraction operator+ (Fraction f1, Fraction f2);
-    friend Fraction operator+ (int f1, Fraction f2);
+        friend Fraction operator+ (Fraction f1, Fraction f2);
+        friend Fraction operator+ (int f1, Fraction f2);
 
-    void operator++ ();
-    void operator++ (int f1);
+        void operator++ ();
+        void operator++ (int f1);
 
-    friend Fraction operator- (Fraction f1, Fraction f2);
-    friend Fraction operator- (int f1, Fraction f2);
+        friend Fraction operator- (Fraction f1, Fraction f2);
+        friend Fraction operator- (int f1, Fraction f2);
 
-    void operator-- ();
-    void operator-- (int f1);
+        void operator-- ();
+        void operator-- (int f1);
 
-    void operator- ();
+        void operator- ();
 
-    friend Fraction operator* (Fraction f1, Fraction f2);
-    friend Fraction operator* (int f1, Fraction f2);
+        friend Fraction operator* (Fraction f1, Fraction f2);
+        friend Fraction operator* (int f1, Fraction f2);
 
-    friend Fraction operator/ (Fraction f1, Fraction f2);
-    friend Fraction operator/ (int f1, Fraction f2);
+        friend Fraction operator/ (Fraction f1, Fraction f2);
+        friend Fraction operator/ (int f1, Fraction f2);
 
-    friend bool operator == (Fraction f1, Fraction f2);
-    friend bool operator != (Fraction f1, Fraction f2);
-    friend bool operator > (Fraction f1, Fraction f2);
-    friend bool operator < (Fraction f1, Fraction f2);
-    friend bool operator >= (Fraction f1, Fraction f2);
-    friend bool operator <= (Fraction f1, Fraction f2);
+        friend bool operator == (Fraction f1, Fraction f2);
+        friend bool operator != (Fraction f1, Fraction f2);
+        friend bool operator > (Fraction f1, Fraction f2);
+        friend bool operator < (Fraction f1, Fraction f2);
+        friend bool operator >= (Fraction f1, Fraction f2);
+        friend bool operator <= (Fraction f1, Fraction f2);
 
 
-    Fraction& operator += (Fraction f);
-    Fraction& operator -= (Fraction f);
-    Fraction& operator *= (Fraction f);
-    Fraction& operator /= (Fraction f);
+        void operator += (Fraction f);
+        void operator -= (Fraction f);
+        void operator *= (Fraction f);
+        void operator /= (Fraction f);
 };
 
 std::ostream& operator<<(std::ostream &out, Fraction& i);
