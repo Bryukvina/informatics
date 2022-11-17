@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cmath>
-#include "frac.hpp"
 #include "frac.cpp"
 
 int main(){
