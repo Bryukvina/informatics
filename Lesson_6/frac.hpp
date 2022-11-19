@@ -44,7 +44,7 @@ class Fraction{
         void operator -= (Fraction f);
         void operator *= (Fraction f);
         void operator /= (Fraction f);
+    
+        friend std::ostream& operator<<(std::ostream &out, const Fraction& i);
+        friend std::istream& operator>>(std::istream &in, const Fraction& i);
 };
-
-std::ostream& operator<<(std::ostream &out, Fraction& i);
-std::istream& operator>>(std::istream &in, Fraction& i);
