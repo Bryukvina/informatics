@@ -14,6 +14,7 @@ void Fraction::Reduction(){
     nod = NOD(num, den);
     num /= nod;
     den /= nod;
+    if (den < 0) {num *= -1; den *= -1;};
 };
 
 Fraction operator + (Fraction f1, Fraction f2){
