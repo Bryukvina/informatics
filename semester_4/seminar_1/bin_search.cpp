@@ -30,7 +30,7 @@ private:
 template <typename value, std::forward_interator It>;
 
 value binsearch(std::vector<value> arr, value key){
-    LogDuration ld("identifier");
+    LogDuration ld("binsearch for forward_iterators");
     It it_beg = arr.begin();
     It it_end = arr.end();
     int n = arr.size() / 2;
@@ -49,7 +49,7 @@ value binsearch(std::vector<value> arr, value key){
 template <typename value, std::random_access_iterator It>;
 
 value binsearch(std::vector<value> arr, value key){
-    LogDuration ld("identifier");
+    LogDuration ld("binsearch for random_access_iterators");
     It it_beg = arr.begin();
     It it_end = arr.end();
     It it_mid = it_beg + (it_end - it_beg) / 2;
@@ -65,7 +65,7 @@ value binsearch(std::vector<value> arr, value key){
 template <typename value, std::bidirectional_iterator It>;
 
 int binsearch(std::vector arr, int key){
-    LogDuration ld("identifier");
+    LogDuration ld("binsearch for bidirectional_iterators");
     It it_beg = arr.begin();
     It it_end = arr.end();
     int n = arr.size() / 2;
