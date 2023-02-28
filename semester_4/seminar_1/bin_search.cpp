@@ -64,7 +64,7 @@ value binsearch(std::vector<value> arr, value key){
 
 template <typename value, std::bidirectional_iterator It>;
 
-int binsearch_for(std::vector arr, int key){
+int binsearch(std::vector arr, int key){
     LogDuration ld("identifier");
     It it_beg = arr.begin();
     It it_end = arr.end();
