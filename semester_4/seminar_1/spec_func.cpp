@@ -52,7 +52,6 @@ class MyClass{
             LogDuration ld("move");
             size = std::move(object.size);
             arr = std::move(Object.arr);
-            size = std::move(Object.size);
             vect = std::move(Object.vect);
         };
         
