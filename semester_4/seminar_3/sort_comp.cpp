@@ -35,7 +35,6 @@ void set_sort(int N){
         int random = std::rand();
         cont_1.insert(random);
     };
-    std::sort(cont_1);
 };
 
 void array_sort(int N){
