@@ -28,23 +28,23 @@ private:
 class MyClass{
     public:
         int size=10;
-        *arr = new int[size];
-        std::vector vect;
+        int *arr = new int[size];
+        std::vector<int> vect;
 
         MyClass() = default;
 
         MyClass(const MyClass &object){
             LogDuration ld("copy:");
-            size = std::copy(object.size);
-            arr = std::copy(object.arr);
-            vect = std::copy(object.vect);
+            size = object.size;
+            arr = object.arr;
+            vect = object.vect;
         };
 
         MyClass operator=(const MyClass& object){
             LogDuration ld("copy operator:");
-            size = std::copy(object.size);
-            arr = std::copy(object.arr);
-            vect = std::copy(object.vect);
+            size = object.size;
+            arr = object.arr;
+            vect = object.vect;
             return *this;
         };
 
