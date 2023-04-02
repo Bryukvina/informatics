@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include <interator>
 #include <chrono>
 
 class LogDuration {
@@ -27,7 +26,7 @@ private:
 
 
 
-template <typename value, std::forward_interator It>;
+template <typename value, std::forward_interator It>
 
 value binsearch(std::vector<value> arr, value key){
     LogDuration ld("binsearch for forward_iterators");
@@ -46,7 +45,7 @@ value binsearch(std::vector<value> arr, value key){
 
 
 
-template <typename value, std::random_access_iterator It>;
+template <typename value, std::random_access_iterator It>
 
 value binsearch(std::vector<value> arr, value key){
     LogDuration ld("binsearch for random_access_iterators");
@@ -62,12 +61,13 @@ value binsearch(std::vector<value> arr, value key){
 };
 
 
-template <typename value, std::bidirectional_iterator It>;
+template <typename value, std::bidirectional_iterator It>
 
-int binsearch(std::vector arr, int key){
+value binsearch(std::vector<value> arr, int key){
     LogDuration ld("binsearch for bidirectional_iterators");
     It it_beg = arr.begin();
     It it_end = arr.end();
+    It it_mid;
     int n = arr.size() / 2;
     int i;
     while (it_beg < it_end && *it_end != key) {
