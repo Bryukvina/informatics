@@ -1,47 +1,71 @@
 #include <iostream>
 #include <iterator>
-#include <list>
+#include <memory>
 
-class Node: public std::enable_shared_from_this<A>{
-    public:
-        Node(){
-            parent = NULL;
-        };
-        ~Node() = default;
+struct Node{
+    std::shared_ptr<Node> parent;
+    std::shared_ptr<Node> child1;
+    std::shared_ptr<Node> child2;
+    int value;
 
-        void set_parent(std::shared_ptr<Node> par){
-            this->parent = par;
-        }
-        void add_child(std::shared_ptr<Node> child){
-            children->push_back(child);
-            child->set_parent(share_from_this());
-        };
+    Node(const int&value): value(value){};
 
-    private:
-        std::list<std::shared_ptr<Node>> children;
-        std::shared_ptr<Node> parent;
+    ~Node(){
+        std::cout << "delete" << value << std::endl;
+        ~value;
+    };
+
 };
 
-void make_connection(Node par, Node child){
-    par.add_child(child);
-    child.set_parent(par);
+class Tree{
+    public:
+        std::shared_ptr<Node> head;
+        std::shared_ptr<Node> current_place;
+
+        Tree(const int& value){
+            head = std::make_shared<Node>(value);
+            current_place = head;
+        };
+        
+        int& get_value() {
+            std::cout << current_place->value << std::endl;
+            return current_place->value;};
+
+        void left() {
+            current_place = current_place->child1;
+        };
+
+        void right(){
+            current_place = current_place->child2;
+        };
+
+        void up(){
+            current_place = (current_place->parent);
+        };
+
+        void append1(const int& val) {
+            current_place->child1 = std::make_shared<Node>(val);
+            current_place->child1->parent = std::shared_ptr<Node>(current_place);
+        };
+
+        void append2(const int& val) {
+            current_place->child2 = std::make_shared<Node>(val);
+            current_place->child2->parent = std::shared_ptr<Node>(current_place);
+        };
 };
 
 int main(){
-    Node root;
-    Node nod_11;
-    Node nod_12;
-    Node nod_21;
-    Node nod_22;
-    Node nod_23;
-    Node nod_24;
-
-    make_connection(root, nod_11);
-    make_connection(root, nod_12);
-    make_connection(nod_11, nod_21);
-    make_connection(nod_12, nod_22);
-    make_connection(nod_12, nod_23);
-    make_connection(nod_12, nod_24);
-    
-
+    Tree tree(0);
+    tree.append1(1);
+    tree.append2(2);
+    tree.right();
+    tree.append1(5);
+    tree.append2(6);
+    tree.up();
+    tree.get_value();
+    tree.append1(7);
+    tree.get_value();
+    tree.up();
+    tree.up();
+    tree.get_value();
 };
