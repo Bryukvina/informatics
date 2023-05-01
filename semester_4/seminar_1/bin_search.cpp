@@ -3,6 +3,7 @@
 #include <vector>
 #include <chrono>
 
+
 class LogDuration {
 public:
     LogDuration(std::string id)
@@ -26,58 +27,104 @@ private:
 
 
 
-template <typename value, std::forward_interator It>
+template <typename T>
+class ForwardIterator : public std::iterator<std::forward_iterator_tag, T> {
+    private:
+        using Iter_t = typename std::vector<T>::iterator;
+        Iter_t it;
+    public:
+        ForwardIterator(const Iter_t& std_iter) : it(std_iter) {}
 
-value binsearch(std::vector<value> arr, value key){
-    LogDuration ld("binsearch for forward_iterators");
-    It it_beg = arr.begin();
-    It it_end = arr.end();
-    int n = arr.size() / 2;
-    int i;
-    while (n > 1 && *it_sup != key) {
-        It it_sup = it_beg;
-        for (i = 0, n, i++){++it_sup};
-        if (*it_sup < key) {It it_beg = it_sup};
-        n /= 2;
+        ForwardIterator<T> operator=(const Iter_t& std_iter) {
+            it = std_iter;
+            return *this;
     }
-    return it_sup;
+  
+    ForwardIterator<T> operator++() {
+        ++it;
+        return *this;
+    }
+
+    T& operator*() {
+        return *it;
+    }
 };
 
+template <typename T>
+class BidirectionalIterator : public ForwardIterator<T> {
+public:
+  using ForwardIterator<T>::ForwardIterator;
 
-
-template <typename value, std::random_access_iterator It>
-
-value binsearch(std::vector<value> arr, value key){
-    LogDuration ld("binsearch for random_access_iterators");
-    It it_beg = arr.begin();
-    It it_end = arr.end();
-    It it_mid = it_beg + (it_end - it_beg) / 2;
-    while (it_mid != it_end *it_mid != key) {
-        if (*it_mid > key) it_end = it_mid;
-        else it_beg = it_mid + 1;
-        it_mid = it_beg + (it_end - it_beg) / 2;
-    }
-    return it_mid;
+  ForwardIterator<T> operator--() {
+    --this->it;
+    return *this;
+  }
 };
 
+template <typename T, typename Iterator, typename IterCategory>
+void MoveIteratorHelper(std::vector<T>& v, Iterator& iter, int& was, int is, IterCategory) {
+  if (was > is) {
+    iter = v.begin();
+    was = 0;
+  }
+  for (; was < is; was++, ++iter);
+}
 
-template <typename value, std::bidirectional_iterator It>
+template <typename T, typename Iterator>
+void MoveIteratorHelper(std::vector<T>& v, Iterator& iter, int& was, int is, std::bidirectional_iterator_tag) {
+  if (was > is)
+    for (; was > is; was--, --iter);
+  else
+    for (; was < is; was++, ++iter);
+}
 
-value binsearch(std::vector<value> arr, int key){
-    LogDuration ld("binsearch for bidirectional_iterators");
-    It it_beg = arr.begin();
-    It it_end = arr.end();
-    It it_mid;
-    int n = arr.size() / 2;
-    int i;
-    while (it_beg < it_end && *it_end != key) {
-        if (*it_mid < key){
-            for (i = 0, n, i++){++it_beg};
-        };
-        else {
-            for (i = 0, n, i++){--it_end};
-        };
-        n /= 2;
+template <typename T, typename Iterator>
+void MoveIteratorHelper(std::vector<T>& v, Iterator& iter, int& was, int is, std::random_access_iterator_tag) {
+  iter += is - was;
+  was = is;
+}
+
+template <typename T, typename Iterator>
+void MoveIterator(std::vector<T>& v, Iterator& iter, int& was, int is) {
+  MoveIteratorHelper<T, Iterator>(v, iter, was, is, typename std::iterator_traits<Iterator>::iterator_category());
+}
+
+template <typename T, typename Iterator>
+int BinSearch(std::vector<T>& v, const T& obj) {
+  int n = v.size();
+  Iterator iter = v.begin();
+  int iter_pos = 0;
+  int left_bound = 0, right_bound = n;
+
+  MoveIterator<T, Iterator>(v, iter, iter_pos, (right_bound + left_bound) / 2);
+  while (left_bound < right_bound) {
+    if (*iter >= obj) {
+      right_bound = (right_bound + left_bound) / 2;
     }
-    return it_end;
+    else {
+      left_bound = (right_bound + left_bound) / 2 + 1;
+      if (left_bound >= n)
+        return -1;
+    }
+    MoveIterator<T, Iterator>(v, iter, iter_pos, (right_bound + left_bound) / 2);
+  }
+
+  if (*iter == obj)
+    return iter_pos;
+  else
+    return -1;
+}
+
+int main() {
+  std::vector<int> vect = {1, 2, 3, 4, 5};
+  int key = 3;
+  
+  LogDuration("Forward iterator binsearch");
+  std::cout << BinSearch<int, ForwardIterator<int>>(vect, key) << std::endl;
+
+  LogDuration("Bidirectional iterator binsearch");
+  std::cout << BinSearch<int, BidirectionalIterator<int>>(vect, key) << std::endl;
+  
+  LogDuration("Random access iterator binsearch");
+  std::cout << BinSearch<int, std::vector<int>::iterator>(vect, key) << std::endl;
 }
