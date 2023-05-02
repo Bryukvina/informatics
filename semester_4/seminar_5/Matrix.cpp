@@ -21,9 +21,9 @@ public:
     m = _m;
     n = _n;
     Matrix = (T**) new T*[m];
-    for (int i = 0; i < m; i++){Matrix[i] = (T*)new T[n]};
+    for (int i = 0; i < m; i++){Matrix[i] = (T*)new T[n];};
     for (int i = 0; i < m; i++){
-      for (int j = 0; j < n; j++){Matrix[i][j] = 0};
+      for (int j = 0; j < n; j++){Matrix[i][j] = 0;};
     };
   };
 
@@ -32,9 +32,9 @@ public:
     m = _M.m;
     n = _M.n;
     Matrix = (T**) new T*[m];
-    for (int i = 0; i < m; i++){Matrix[i] = (T*) new T[n]};
+    for (int i = 0; i < m; i++){Matrix[i] = (T*) new T[n];};
     for (int i = 0; i < m; i++){
-      for (int j = 0; j < n; j++){Matrix[i][j] = _M.Matrix[i][j]};
+      for (int j = 0; j < n; j++){Matrix[i][j] = _M.Matrix[i][j];};
     };
   };
 
@@ -52,9 +52,9 @@ public:
     m = M.m;
     n = M.n;
     Matrix = (T**) new T*[m];
-    for (int i = 0; i < m; i++){Matrix[i] = (T*) new T[n]};
+    for (int i = 0; i < m; i++){Matrix[i] = (T*) new T[n];};
     for (int i = 0; i < m; i++){
-      for (int j = 0; j < n; j++){Matrix[i][j] = M.Matrix[i][j]};
+      for (int j = 0; j < n; j++){Matrix[i][j] = M.Matrix[i][j];};
     };
     return *this;
   };
@@ -80,7 +80,6 @@ public:
   {
     assert(m > i && n > j );
     Matrix[i][j] = value;
-    return
   };
 
   MATRIX Sum(MATRIX M1, MATRIX M2){
@@ -98,15 +97,15 @@ public:
       assert ((M.n == this->n) && (M.m == this->m));
       if (this->n > 0)
       {
-        for (int i = 0; i < m; i++)
-          delete[] this->Matrix[i];
+        for (int i = 0; i < m; i++){
+          delete[] this->Matrix[i];};
       }
       if (this->m > 0)
       {
         delete[] M;
       }
       for (int i = 0; i < m; i++){
-        for (int j = 0; j < n; j++){this->Matrix[i][j] += M.Matrix[i][j]};
+        for (int j = 0; j < n; j++){this->Matrix[i][j] += M.Matrix[i][j];};
       };
       return *this;
     };
@@ -128,27 +127,17 @@ public:
       if (this->n > 0)
       {
         for (int i = 0; i < m; i++)
-          delete[] this->Matrix[i];
+          {delete[] this->Matrix[i];};
       }
       if (this->m > 0)
       {
         delete[] M;
       }
       for (int i = 0; i < m; i++){
-        for (int j = 0; j < n; j++){this->Matrix[i][j] -= M.Matrix[i][j]};
+        for (int j = 0; j < n; j++){this->Matrix[i][j] -= M.Matrix[i][j];};
       };
       return *this;
     };
 };
 
 
-void Print(const char* ObjName)
-{
-  for (int i = 0; i < m; i++)
-  {
-    for (int j = 0; j < n; j++){
-      std::cout << Matrix[i][j] << " ";
-      std::cout << endl;
-    };
-  };
-};
