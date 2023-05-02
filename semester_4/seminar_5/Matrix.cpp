@@ -2,6 +2,7 @@
 #include <cassert> 
 
 template <typename T>
+
 class MATRIX
 {
 private:
@@ -140,4 +141,13 @@ public:
     };
 };
 
-
+int main(){
+    MATRIX m(2, 3);
+    m.SetMij(0, 0, 2);
+    m.SetMij(1, 1, 3);
+    MATRIX n(2, 3);
+    n.SetMij(0, 1, 2);
+    n.SetMij(1, 0, 3);
+    m = m + n;
+    std::cout << m.GetMij(0, 1) << std::endl;
+};
