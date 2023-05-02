@@ -61,19 +61,21 @@ void vector_sort(int N){
 
 
 int main(){
-    int N;
-    std::count << "Comparison for N =" << std::endl;
-    set_sort(N);
-    array_sort(N);
-    vector_sort(N);
     
-    N = ;
-    std::count << "Comparison for N =" << std::endl;
+    int N = 10000;
+    std::cout << "Comparison for N =" << N << std::endl;
     set_sort(N);
     array_sort(N);
     vector_sort(N);
     };
-
 /*
 Conclusion: 
+Result is following:
+
+
+Comparison for N =10000
+Set_sort time: operation time: 7 ms
+array_sort time: operation time: 3 ms
+vector_sort time: operation time: 4 ms
+
 */
