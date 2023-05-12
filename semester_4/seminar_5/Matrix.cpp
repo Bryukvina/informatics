@@ -1,153 +1,85 @@
 #include <iostream>
 #include <cassert> 
 
-template <typename T>
 
-class MATRIX
-{
-private:
-  T** Matrix; // матрица
-  int m; // строки
-  int n; // столбцы
+template<typename T, unsigned  n, unsigned  m>
+class MATRIX{
+  public:
+    T** Matrix;
 
-public:
-  MATRIX()
-  {
-    n = m = 0;
-    Matrix = nullptr;
-  };
-
-  MATRIX(int _m, int _n)
-  {
-    m = _m;
-    n = _n;
-    Matrix = (T**) new T*[m];
-    for (int i = 0; i < m; i++){Matrix[i] = (T*)new T[n];};
-    for (int i = 0; i < m; i++){
-      for (int j = 0; j < n; j++){Matrix[i][j] = 0;};
-    };
-  };
-
-  MATRIX(const MATRIX& _M)
-  {
-    m = _M.m;
-    n = _M.n;
-    Matrix = (T**) new T*[m];
-    for (int i = 0; i < m; i++){Matrix[i] = (T*) new T[n];};
-    for (int i = 0; i < m; i++){
-      for (int j = 0; j < n; j++){Matrix[i][j] = _M.Matrix[i][j];};
-    };
-  };
-
-  MATRIX operator=(const MATRIX& M)
-  {
-    if (n > 0)
+    MATRIX()
     {
-      for (int i = 0; i < m; i++)
-        delete[] Matrix[i];
-    }
-    if (m > 0)
-    {
-      delete[] M;
-    }
-    m = M.m;
-    n = M.n;
-    Matrix = (T**) new T*[m];
-    for (int i = 0; i < m; i++){Matrix[i] = (T*) new T[n];};
-    for (int i = 0; i < m; i++){
-      for (int j = 0; j < n; j++){Matrix[i][j] = M.Matrix[i][j];};
-    };
-    return *this;
-  };
-
-  ~MATRIX()
-  {
-    if (n > 0)
-    {
-      for (int i = 0; i < m; i++)
-        delete[] Matrix[i];
-    }
-    if (m > 0)
-      delete[] Matrix;
-  };
-
-  T GetMij(int i, int j)
-  {
-    assert(m > i && n > j );
-    return Matrix[i][j];
-  };
-
-  void SetMij(int i, int j, T value)
-  {
-    assert(m > i && n > j );
-    Matrix[i][j] = value;
-  };
-
-  MATRIX Sum(MATRIX M1, MATRIX M2){
-    assert((M1.n == M2.n) && (M1.m == M2.m));
-    MATRIX res(M1.m, M1.n);
-    for (int i = 0; i < m; i++){
-      for (int j = 0; j < n; j++)
-        {res.Matrix[i][j] = M1.Matrix[i][j] + M2.Matrix[i][j];};
-    };
-    return res;
-  };
-
-  MATRIX operator+(const MATRIX& M)
-    {
-      assert ((M.n == this->n) && (M.m == this->m));
-      if (this->n > 0)
-      {
-        for (int i = 0; i < m; i++){
-          delete[] this->Matrix[i];};
-      }
-      if (this->m > 0)
-      {
-        delete[] M;
-      }
+      Matrix = (T**) new T*[m];
+      for (int i = 0; i < m; i++){Matrix[i] = (T*)new T[n];};
       for (int i = 0; i < m; i++){
-        for (int j = 0; j < n; j++){this->Matrix[i][j] += M.Matrix[i][j];};
+        for (int j = 0; j < n; j++){Matrix[i][j] = 0;};
       };
-      return *this;
     };
 
-
-  MATRIX dif(MATRIX M1, MATRIX M2){
-    assert((M1.n == M2.n) && (M1.m == M2.m));
-    MATRIX res(M1.m, M1.n);
-    for (int i = 0; i < m; i++){
-      for (int j = 0; j < n; j++)
-        {res.Matrix[i][j] = M1.Matrix[i][j] + M2.Matrix[i][j];};
-    };
-    return res;
-  };
-
-  MATRIX operator-(const MATRIX& M)
+    MATRIX(const MATRIX& _M)
     {
-      assert ((M.n == this->n) && (M.m == this->m));
-      if (this->n > 0)
-      {
-        for (int i = 0; i < m; i++)
-          {delete[] this->Matrix[i];};
-      }
-      if (this->m > 0)
-      {
-        delete[] M;
-      }
+      Matrix = (T**) new T*[m];
+      for (int i = 0; i < m; i++){Matrix[i] = (T*) new T[n];};
       for (int i = 0; i < m; i++){
-        for (int j = 0; j < n; j++){this->Matrix[i][j] -= M.Matrix[i][j];};
+        for (int j = 0; j < n; j++){Matrix[i][j] = _M.Matrix[i][j];};
       };
-      return *this;
+    };
+
+    void print(){
+      for (int i = 0; i < n; i++){
+        for (int j = 0; j < m; j++){std::cout << Matrix[i * m + j] << " ";};
+        std::cout << std::endl;
+      };
+    };
+
+    void SetMij(int i, int j, T value){
+        Matrix[i][j] = value;
     };
 };
 
+template<typename T, unsigned n1, unsigned m1, unsigned n2, unsigned m2>
+MATRIX<T, n1, m1> operator+(MATRIX<T, n1, m1> M1, MATRIX<T, n2, m2> M2){
+  assert((n1 == n2) && (m1 == m2));
+  MATRIX<T, n1, m1> res;
+    for (int i = 0; i < m1; i++){
+      for (int j = 0; j < n1; j++){res.Matrix[i][j] = M1.Matrix[i][j] + M2.Matrix[i][j];};
+    };
+    return res;
+  };
+  
+  
+template<typename T, unsigned n1, unsigned m1, unsigned n2, unsigned m2>
+MATRIX<T, n1, m2> operator*(MATRIX<T, n1, m1> M1, MATRIX<T, n2, m2> M2){
+  assert(n2 == m1);
+  MATRIX<T, n1, m2> res;
+  for (int i = 0; i < n1; i++){
+    for (int j = 0; j < m2; j++){
+        for (int k = 0; k < m1; k++){res.Matrix[i][j] += M1.Matrix[i][k] * M2.Matrix[k][j];};
+    };
+    return res;
+  };
+};
+  
+
 int main(){
-    MATRIX m(2, 3);
-    m.SetMij(0, 0, 2);
-    m.SetMij(1, 1, 3);
-    MATRIX n(2, 3);
-    n.SetMij(0, 1, 2);
-    n.SetMij(1, 0, 3);
-    m = m + n;
-    std::cout << m.GetMij(0, 1) << std::endl;
+    MATRIX<int, 2, 3> Mat1;
+    MATRIX<int, 2, 3> Mat2;
+    
+    Mat1.SetMij(0, 0, 1);
+    Mat1.SetMij(0, 1, 2);
+    Mat1.SetMij(1, 0, 3);
+    Mat1.SetMij(1, 1, 4);
+    Mat1.SetMij(0, 2, 5);
+    
+    Mat2.SetMij(0, 0, 6);
+    Mat2.SetMij(0, 1, 7);
+    Mat2.SetMij(1, 0, 8);
+    Mat2.SetMij(1, 1, 9);
+    Mat2.SetMij(0, 2, 1);
+    
+    Mat2 = Mat2 + Mat1;
+    Mat2.print();
+    Mat1 = Mat1 * Mat2;
+    Mat1.print();
+    return 0;
 };
